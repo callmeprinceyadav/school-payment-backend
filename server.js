@@ -12,17 +12,32 @@ const app = express();
 
 //  CORS setup (simple + secure)
 app.use(cors({
-  origin: [
-    'http://localhost:5173',          
-    'https://school-payment-frontend-beryl.vercel.app',
-    'https://*.vercel.app',
-    'https://school-payment-dashboard.vercel.app',
-    'https://school-payment-4ikhwwinw-prince-yadavs-projects-5c61385e.vercel.app',
-    'https://school-payment-1rpvostq5-prince-yadavs-projects-5c61385e.vercel.app'
-  ],
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps, curl requests)
+    if (!origin) return callback(null, true);
+    
+    // Allow localhost for development
+    if (origin.includes('localhost:5173')) return callback(null, true);
+    
+    // Allow all Vercel deployments
+    if (origin.includes('.vercel.app')) return callback(null, true);
+    
+    // Allow specific domains
+    const allowedOrigins = [
+      'https://school-payment-frontend-beryl.vercel.app',
+      'https://school-payment-dashboard.vercel.app'
+    ];
+    
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+    
+    callback(new Error('Not allowed by CORS'));
+  },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Origin', 'Accept'],
+  optionsSuccessStatus: 200
 }));
 
 // Middleware
