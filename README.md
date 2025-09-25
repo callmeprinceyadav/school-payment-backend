@@ -2,7 +2,7 @@
 
 A microservice for managing school payments and transactions with integrated payment gateway support.
 
-## Features
+## Features :-
 
 - JWT-based authentication system
 - Payment gateway integration with Edviron
@@ -465,5 +465,6 @@ For support and questions:
 
 ---
 
-**Note**: This is a test environment. Use the provided test credentials for Cashfree payment gateway testing.#   s c h o o l - p a y m e n t - b a c k e n d  
+**Note**: This is a test environment. Use the provided test credentials for Cashfree payment gateway testing.#   s c h o o l - p a y m e n t - b a c k e n d 
+ 
  
