@@ -17,7 +17,8 @@ app.use(cors({
     'https://school-payment-frontend-beryl.vercel.app',
     'https://*.vercel.app',
     'https://school-payment-dashboard.vercel.app',
-    'https://school-payment-4ikhwwinw-prince-yadavs-projects-5c61385e.vercel.app'
+    'https://school-payment-4ikhwwinw-prince-yadavs-projects-5c61385e.vercel.app',
+    'https://school-payment-1rpvostq5-prince-yadavs-projects-5c61385e.vercel.app'
   ],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
