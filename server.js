@@ -14,8 +14,13 @@ const app = express();
 app.use(cors({
   origin: [
     'http://localhost:5173',          
-    'https://school-payment-frontend-beryl.vercel.app/' 
-  ]
+    'https://school-payment-frontend-beryl.vercel.app',
+    'https://*.vercel.app',
+    'https://school-payment-dashboard.vercel.app'
+  ],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
 // Middleware
@@ -28,10 +33,15 @@ app.use((req, res, next) => {
   next();
 });
 
-// Connect to MongoDB
+// Connect to MongoDB with optimized settings for Vercel
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
+  serverSelectionTimeoutMS: 5000, // 5 seconds
+  socketTimeoutMS: 45000, // 45 seconds
+  maxPoolSize: 10, // Maintain up to 10 socket connections
+  bufferCommands: false, // Disable mongoose buffering
+  bufferMaxEntries: 0 // Disable mongoose buffering
 })
 .then(() => console.log('Connected to MongoDB'))
 .catch(err => console.error('MongoDB connection error:', err));
