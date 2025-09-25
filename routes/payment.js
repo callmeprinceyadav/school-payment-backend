@@ -9,7 +9,7 @@ const authMiddleware = require('../middleware/auth');
 
 const router = express.Router();
 
-// Validation schema for create payment
+
 const createPaymentSchema = Joi.object({
   amount: Joi.number().positive().required(),
   student_info: Joi.object({
@@ -30,7 +30,7 @@ router.post('/create-payment', authMiddleware, async (req, res) => {
 
     const { amount, student_info, callback_url = 'https://google.com' } = req.body;
 
-    // Create order in database
+    order in database
     const order = new Order({
       school_id: process.env.SCHOOL_ID,
       trustee_id: req.user._id.toString(),
@@ -40,7 +40,7 @@ router.post('/create-payment', authMiddleware, async (req, res) => {
 
     await order.save();
 
-    // Create order status entry
+    
     const orderStatus = new OrderStatus({
       collect_id: order._id,
       order_amount: amount,

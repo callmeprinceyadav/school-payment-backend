@@ -3,16 +3,22 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 require('dotenv').config();
 
-// Import routes
 const authRoutes = require('./routes/auth');
 const paymentRoutes = require('./routes/payment');
 const transactionRoutes = require('./routes/transactions');
 
-// Create Express app
+
 const app = express();
 
+//  CORS setup (simple + secure)
+app.use(cors({
+  origin: [
+    'http://localhost:5173',          
+    'https://school-payment-frontend-beryl.vercel.app/' 
+  ]
+}));
+
 // Middleware
-app.use(cors());
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
@@ -35,7 +41,6 @@ mongoose.connection.on('connected', async () => {
   try {
     const db = mongoose.connection.db;
     
-    // Create indexes
     await db.collection('orders').createIndex({ school_id: 1 });
     await db.collection('orders').createIndex({ custom_order_id: 1 });
     await db.collection('orderstatuses').createIndex({ collect_id: 1 });
@@ -81,7 +86,7 @@ app.get('/', (req, res) => {
   });
 });
 
-// Error handling middleware
+// Error handling 
 app.use((err, req, res, next) => {
   console.error('Unhandled error:', err);
   res.status(500).json({ 
@@ -90,7 +95,7 @@ app.use((err, req, res, next) => {
   });
 });
 
-// 404 handler
+
 app.use((req, res) => {
   res.status(404).json({ message: 'Route not found' });
 });
