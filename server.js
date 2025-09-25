@@ -16,7 +16,7 @@ app.use(cors({
     'http://localhost:5173',          
     'https://school-payment-frontend-beryl.vercel.app',
     'https://*.vercel.app',
-    'https://school-payment-dashboard.vercel.app'
+    'https://school-payment-backend-ngy.vercel.app'
   ],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
